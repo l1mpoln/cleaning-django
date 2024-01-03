@@ -1,0 +1,112 @@
+{% extends 'client/cleaner_base.html' %}
+
+{% block content %}
+
+<div class="mt-10 mr-96 ml-96 container-fluid flex  justify-between items-center">
+    <h1 class="text-xl font-semibold text-center text-orange-500" href="">Make a proposal</a>
+</div>
+
+<div class="mt-5 mr-96 ml-96  pt-5 h-96 container-fluid flex flex-col justify-between border shadow-xl rounded-2xl">
+    <div class="h-20 border-b container-fluid flex justify-between">
+        <div class="ml-5 w-1/3 h-12">
+            <h1 class="text-base font-semibold text-center">Address</h1>
+            <p class="text-base text-center">{{ order.street }}</p>
+        </div>
+        <div class="w-1/3 h-12">
+            <h1 class="text-base font-semibold text-center">Date and time</h1>
+            <p class="text-base text-center">{{ order.date }}</p>
+            <p class="text-base text-center">{{ order.time }}</p>
+        </div>
+        <div class="mr-5 w-1/3 h-12">
+            <h1 class="text-base font-semibold text-center">Price</h1>
+            <p class="text-base text-center">{{ order.client_price }}</p>
+        </div>
+    </div>
+    <div class="h-20 border-b container-fluid flex justify-between">
+        <div class="ml-5 w-1/3 h-12">
+            <h1 class="text-base font-semibold text-center">Package</h1>
+            <p class="text-base text-center">{{ order.package.name }}</p>
+        </div>
+        <div class="w-1/3 h-12">
+            <h1 class="text-base font-semibold text-center">Window cleaning</h1>
+            <p></p>
+        </div>
+        <div class="mr-5 w-1/3 h-12">
+            <h1 class="text-base font-semibold text-center">Additional services</h1>
+            <p></p>
+        </div>
+    </div>
+    <div class="h-20 border-b container-fluid flex justify-between flex-col">
+        <div class="ml-32 h-12">
+            <h1 class="text-base font-semibold">How to get in house</h1>
+            {{ order.get_enter_display }}
+        </div>
+    </div>
+</div>
+<div class="mt-5 mr-96 ml-96 pb-5 pt-5 container-fluid flex flex-col justify-between border shadow-xl rounded-2xl">
+    <form method='post' action="">
+        {% csrf_token %}
+        <div class="form-group ml-10">
+            <label for="{{ form.price.id_for_label }}">Price:</label></br>
+            {{ form.price }}
+        </div>
+        <div class="h-20 border-b container-fluid flex justify-between">
+            <div class="">
+                <h1 class="ml-10 mt-2 text-base font-semibold">Total price of cleaning</h1>
+                <p class="ml-10 ">Total price that client will pay</p>
+            </div>
+            <p class="ml-10 mt-2 text-base font-semibold mr-10" id="repeat-price">0</p>
+        </div>
+
+        <div class="h-20 border-b container-fluid flex justify-between">
+            <h1 class="ml-10 mt-2 text-base font-semibold">18% platform commision</h1>
+            <p class="ml-10 mt-2 text-base font-semibold mr-10" id="commission-info">0</p>
+        </div>
+
+        <div class="h-20 border-b container-fluid flex justify-between">
+            <h1 class="ml-10 mt-2 text-base font-semibold">At the end you will get</h1>
+            <p class="ml-10 mt-2 text-base font-semibold mr-10" id="final-price">0</p>
+        </div>
+
+        <div class="mt-2 form-group ml-10 mr-10">
+            <label class="text-base font-semibold mb-3" for="{{ form.comment.id_for_label }}">Leave your comment to client:</label></br>
+            {{ form.comment }}
+        </div>
+
+        <button class="ml-10 mt-3 mb-4 mr-96 py-4 px-8 text-lg bg-orange-500 hover:bg-orange-700 rounded-xl text-white">Send proposal</button>
+    </form>
+    {% if form.errors %}
+        <p style="color: red;">Please correct the errors below.</p>
+    {% endif %}
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Обработчик события ввода для поля цены
+        $('#id_price').on('input', function () {
+            // Получаем значение цены
+            var price = parseFloat($(this).val());
+
+            // Обновляем значения в элементах <p>
+            $('#repeat-price').text(price);
+            
+            // Рассчитываем комиссию (18%)
+            var commission = calculateCommission(price);
+            $('#commission-info').text(commission);
+
+            // Рассчитываем финальную цену
+            var finalPrice = price - commission;
+            $('#final-price').text(finalPrice.toFixed(2));  // Фиксируем количество десятичных знаков
+        });
+
+        // Ваша функция для расчета комиссии
+        function calculateCommission(price) {
+            // Реализуйте свой расчет комиссии здесь
+            // Например, 18% комиссии
+            return price * 0.18;
+        }
+    });
+</script>
+{% endblock %}

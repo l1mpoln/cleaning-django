@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white-100">
+    
+    <div class="mt-40 text-center">
+        <h2 class="text-2xl" style="font-family: sans-serif">Log into your account</h2>
+    </div>
+
+    <div class="mt-10 text-center">
+        <h2 class="text-lg" style="font-family: sans-serif">Welcome back. Please, log in</h2>
+    </div>
+    
+    <div class="flex justify-center w-96 my-6 p-6 mx-auto bg-white-100 rounded-xl border shadow-2xl">
+        <form method="post" action=".">
+            {% csrf_token %}
+    
+            <div class="mb-3">
+                <label class="inline-block mb-2">Email</label><br>
+                {{ form.username }}
+            </div>
+    
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password</label><br>
+                {{ form.password }}
+            </div>
+    
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for f in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+    
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+    
+            <button class="mt-5 py-3 px-3 text-lg bg-orange-500 hover:bg-orange-700 rounded-xl text-white w-80" style="font-family: sans-serif">
+                Log in
+            </button>
+        </form>
+    </div>
+
+    <div class="flex justify-center w-80 mt-5 mx-auto">
+        <p>Dont have an account? <a href="/signup" class="text-orange-500 hover:underline">Sign Up</a></p>
+    </div>
+    
+
+</body>
+</html>

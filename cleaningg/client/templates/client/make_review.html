@@ -1,0 +1,12 @@
+{% extends 'client/cleaner_base.html' %}
+
+{% block content%}
+<div class="mt-36 mr-96 ml-96 pt-5 container-fluid flex flex-col justify-between items-center border shadow-xl rounded-2xl">
+   <div class="">
+        <form action="" method='post'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="mt-4 mb-4 mr-96 py-4 w-full px-8 text-lg bg-orange-500 hover:bg-orange-700 rounded-xl text-white font-semibold">Rate</button>
+        </form>
+    </div>
+{% endblock %}

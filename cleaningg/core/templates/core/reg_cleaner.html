@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white-100">
+    
+    <div class="mt-5 text-center">
+        <h2 class="text-2xl" style="font-family: sans-serif">Create a cleaner account</h2>
+    </div>
+
+    <div class="mt-5 text-center">
+        <h2 class="text-lg" style="font-family: sans-serif">Step 1/2</h2>
+    </div>
+    
+    <div class="flex justify-center w-96 my-6 p-6 mx-auto bg-white-100 rounded-xl border shadow-2xl">
+        <form method="post" action=".">
+            {% csrf_token %}
+       
+            <div class="mb-3 w-80">
+                <label class="inline-block mb-2">First name</label><br>
+                {{ form.first_name }}
+            </div>
+    
+            <div class="mb-3">
+                <label class="inline-block mb-2">Second name</label><br>
+                {{ form.last_name }}
+            </div>
+    
+            <div class="mb-3">
+                <label class="inline-block mb-2">Email</label><br>
+                {{ form.username }}
+            </div>
+    
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password</label><br>
+                {{ form.password1 }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Repeat password</label><br>
+                {{ form.password2 }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Enter your card number</label><br>
+                {{ form.card_number }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Enter your INN</label><br>
+                {{ form.INN }}
+            </div>
+    
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for f in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+    
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+    
+            <button class="mt-5 py-3 px-3 text-lg bg-orange-500 hover:bg-orange-700 rounded-xl text-white w-80" style="font-family: sans-serif">
+                Create an account
+            </button>
+        </form>
+    </div>
+
+    <div class="flex justify-center w-80 mt-5 mx-auto">
+        <p>Already have an account? <a href="/login" class="text-orange-500 hover:underline">Log in</a></p>
+    </div>
+
+</body>
+</html>

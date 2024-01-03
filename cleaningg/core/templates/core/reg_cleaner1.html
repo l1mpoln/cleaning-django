@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cleaner Registration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-white-100">
+
+    <div class="mt-5 text-center">
+        <h2 class="text-lg" style="font-family: sans-serif">Step 2/2</h2>
+    </div>
+
+    <div class="flex justify-center w-96 my-6 p-6 mx-auto rounded-xl border shadow-2xl">
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Where you want to work</label><br>
+                {{ form.city }}
+            </div>
+
+            <div class="flex mb-3">
+                <div class="w-1/2 mr-6">
+                    <label class="inline-block mb-2">Age</label><br>
+                    {{ form.age }}
+                </div>
+
+                <div class="w-1/2">
+                    <label class="inline-block mb-2">Worked before?</label><br>
+                    {{ form.previous_work_experience }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Why you left previous work? </label><br>
+                {{ form.reason_for_leaving }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Punctuality</label><br>
+                {{ form.punctuality }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Stress resistance</label><br>
+                {{ form.stress_resilience }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Cleaning speed</label><br>
+                {{ form.cleaning_speed }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Cleaning quality</label><br>
+                {{ form.cleaning_quality }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Willing to work in a team?</label><br>
+                {{ form.willing_to_work_in_team }}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Own cleaning equipment?</label><br>
+                {{ form.own_cleaning_equipment }}
+            </div>
+
+
+            {% if form.errors or form.non_field_errors %}
+                <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for field in form %}
+                        {{ field.errors }}
+                    {% endfor %}
+
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <button class="mt-5 py-3 px-3 text-lg bg-red-500 hover:bg-orange-700 rounded-xl text-white w-80" style="font-family: sans-serif">
+                Create an account
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>

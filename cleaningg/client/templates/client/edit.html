@@ -1,0 +1,35 @@
+{% extends 'client/base.html' %}
+
+{% block content %}
+
+<div class="mt-12 mr-96 ml-96 container-fluid flex  justify-between items-center">
+    <a class="text-xl font-semibold text-center text-orange-500" href="{% url 'details' order.id %}">Order details</a>
+    <a class="text-xl font-semibold text-center" href="{% url 'show-proposals' order.id %}">Proposals</a>
+    <a class="text-xl font-semibold text-center" href="{% url 'execution-page' order.id %}">Execution</a>
+</div>
+
+{% if order.is_taken %}
+<div class="mt-5 mr-96 ml-96 pt-5 h-96 container-fluid flex flex-col justify-between border shadow-xl rounded-2xl">
+    <h1 class="text-center mt-36 text-base font-semibold text-orange-500 text-lg">Your order is already on execution, you cant edit it</h1>
+</div>
+{% else %}
+<div class="mt-5 mr-96 ml-96 pt-5 container-fluid flex flex-col justify-between items-center border shadow-xl rounded-2xl">
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="mt-4 mb-4 mr-96 py-4 px-8 text-lg bg-orange-500 hover:bg-orange-700 rounded-xl text-white">Next step</button>
+    </form>
+    {% if form.errors or form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                    {% for f in form %}
+                   {{ field.errors }}
+                {% endfor %}
+    
+                {{ form.non_field_errors }}
+            </div>
+    {% endif %}
+</div>
+<h1>{{ order.is_taken }}</h1>
+{% endif %}
+
+{% endblock  %}
